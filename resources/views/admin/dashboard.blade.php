@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
 @section('title','Dashboard')
 @section('content')
-    <x-alert type='primary' message="Welcome to the {{ env('APP_URL') }}"/>
+    <x-alert type='primary' message="Welcome {{ auth()->user()->name }}"/>
 @endsection

@@ -122,20 +122,24 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
+              <h4 class="mb-2">Welcome to Laravel Starter Kit! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('auth.login') }}" method="POST">
+                @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
                   <input
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
+                    name="email"
                     placeholder="Enter your email or username"
                     autofocus
                   />
+                  @error('email')    
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
@@ -154,6 +158,9 @@
                       aria-describedby="password"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    @error('password')    
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
                   </div>
                 </div>
                 <div class="mb-3">
@@ -180,24 +187,28 @@
       </div>
     </div>
 
+    <x-toast />
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('admin/') }}/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="{{ asset('admin/') }}/assets/vendor/libs/popper/popper.js"></script>
     <script src="{{ asset('admin/') }}/assets/vendor/js/bootstrap.js"></script>
     <script src="{{ asset('admin/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
     <script src="{{ asset('admin/') }}/assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
     <script src="{{ asset('admin/') }}/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="{{ asset('admin/') }}/assets/js/ui-toasts.js"></script>
+    @if(session()->has('toast'))
+      @php
+          $toast = Session::get('toast');
+          $toastHead = $toast['head'];
+          $toastBody = $toast['body'];
+          $toastType = $toast['type'];
+      @endphp
+      <script>
+        toast('{{ $toastHead }}','{{ $toastBody }}','{{ $toastType }}');
+      </script>
+    @endif
   </body>
 </html>
