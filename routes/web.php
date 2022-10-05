@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 */
 Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/data-table',[DashboardController::class,'DataTable'])->name('admin.table.datatable');
     Route::get('/logout',[AuthController::class,'logout'])->name('auth.logout');
 });
 

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('admin/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <script src="{{ asset('admin/') }}/assets/vendor/js/helpers.js"></script>
     <script src="{{ asset('admin/') }}/assets/js/config.js"></script>
+    @yield('header')
   </head>
   <body>
     <div class="layout-wrapper layout-content-navbar">
@@ -67,5 +68,6 @@
         toast('{{ $toastHead }}','{{ $toastBody }}','{{ $toastType }}');
       </script>
     @endif
+    @yield('footer')
   </body>
 </html>
