@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="{{ asset('admin/') }}/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('admin/') }}/assets/css/demo.css" />
     <link rel="stylesheet" href="{{ asset('admin/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="{{ asset('admin/') }}/assets/vendor/libs/apex-charts/apex-charts.css" />
     <script src="{{ asset('admin/') }}/assets/vendor/js/helpers.js"></script>
     <script src="{{ asset('admin/') }}/assets/js/config.js"></script>
   </head>
@@ -43,6 +42,7 @@
           </div>
         </div>
       </div>
+      <x-toast />
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -51,9 +51,21 @@
     <script src="{{ asset('admin/') }}/assets/vendor/js/bootstrap.js"></script>
     <script src="{{ asset('admin/') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="{{ asset('admin/') }}/assets/vendor/js/menu.js"></script>
-    <script src="{{ asset('admin/') }}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="{{ asset('admin/') }}/assets/js/main.js"></script>
     <script src="{{ asset('admin/') }}/assets/js/dashboards-analytics.js"></script>
+    <script src="{{ asset('admin/') }}/assets/js/ui-toasts.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    @stack('scripts')
+    @if(session()->has('toast'))
+      @php
+          $toast = Session::get('toast');
+          $toastHead = $toast['head'];
+          $toastBody = $toast['body'];
+          $toastType = $toast['type'];
+      @endphp
+      <script>
+        toast('{{ $toastHead }}','{{ $toastBody }}','{{ $toastType }}');
+      </script>
+    @endif
   </body>
 </html>
