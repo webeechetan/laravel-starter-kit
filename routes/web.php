@@ -3,16 +3,36 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use Unisharp\LaravelFilemanager\Lfm;
+
+Route::get('/test',function(){
+    return view('welcome');
+});
 
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+
 Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/data-table',[DashboardController::class,'DataTable'])->name('admin.table.datatable');
     Route::get('/logout',[AuthController::class,'logout'])->name('auth.logout');
+    
+    /*
+    |--------------------------------------------------------------------------
+    | File Manager Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::group(['prefix' => 'filemanager'], function () {
+        Lfm::routes();
+    });
+    Route::get('/filemanager-custom-input',function (){
+        return view('admin.file-manager.custom-input');
+    })->name('file-manager.custom-input');
+
 });
 
 /*
