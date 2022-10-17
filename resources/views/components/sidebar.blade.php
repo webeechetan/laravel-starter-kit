@@ -54,6 +54,30 @@
               </li>
             </ul>
           </li>
+          <!-- Role and permissions --->
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-user"></i>
+              <div data-i18n="Account Settings">Roles & Permissions</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="{{ route('role.list') }}" class="menu-link">
+                  <div data-i18n="Account">Roles</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="{{ route('permission.list') }}" class="menu-link">
+                  <div data-i18n="Account">Permissions</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="{{ route('user.list') }}" class="menu-link">
+                  <div data-i18n="Account">Users</div>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </aside>
 </div>
