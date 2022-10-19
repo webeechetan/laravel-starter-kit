@@ -13,7 +13,8 @@ class RoleAndPermissionController extends Controller
 {
     public function RoleList(){
         $roles = Role::all();
-        return view('admin.role.list',compact('roles'));
+        $permissions = Permission::all();
+        return view('admin.role.list',compact('roles','permissions'));
     }
 
     public function RoleStore(Request $request){
@@ -22,8 +23,11 @@ class RoleAndPermissionController extends Controller
         return redirect()->route('role.list');
     }
 
-    public function DeleteRole(Request $request){
-
+    public function DeleteRole($id){
+        $role = Role::find($id);
+        $role->delete();
+        Session::flash('toast',["type" => "danger","head" =>"Role Deleted","body" =>"Role Deleted Successfully"]);
+        return redirect()->route('role.list');
     }
 
     public function PermissonList(){
@@ -40,5 +44,18 @@ class RoleAndPermissionController extends Controller
     public function UserList(){
         $users = User::all();
         return view('admin.user.list',compact('users'));
+    }
+
+    public function AssignPermissionToRoleView($RoleId){
+        $role = Role::find($RoleId);
+        $permissions = Permission::all();
+        return view('admin.permission.assign-permission-to-role',compact('permissions','role'));
+    }
+
+    public function AssignPermissionToRole(Request $request){
+        $role = Role::find($request->RoleId);
+        $role->syncPermissions($request->permissions);
+        Session::flash('toast',["type" => "primary","head" =>"Permission Assigned","body" =>"Permission Assigned Successfully"]);
+        return redirect()->route('role.list');
     }
 }

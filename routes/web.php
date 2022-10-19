@@ -5,8 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Unisharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\RoleAndPermissionController;
-
-
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +26,13 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
 
     // Roles
     Route::get('/role',[RoleAndPermissionController::class,'RoleList'])->name('role.list');
+    Route::get('/role/delete/{RoleId}',[RoleAndPermissionController::class,'DeleteRole'])->name('role.delete');
     Route::post('/role',[RoleAndPermissionController::class,'RoleStore'])->name('role.store');
     // Permissions
     Route::get('/permission',[RoleAndPermissionController::class,'PermissonList'])->name('permission.list');
     Route::post('/permission',[RoleAndPermissionController::class,'PermissonStore'])->name('permission.store');
+    Route::get('/AssignPermissionToRole/{RoleId}',[RoleAndPermissionController::class,'AssignPermissionToRoleView'])->name('assign.permission.to.role.view');
+    Route::post('/AssignPermissionToRole',[RoleAndPermissionController::class,'AssignPermissionToRole'])->name('assign.permission.to.role');
     // Users
     Route::get('/user',[RoleAndPermissionController::class,'UserList'])->name('user.list');
 

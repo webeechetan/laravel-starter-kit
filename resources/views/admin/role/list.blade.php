@@ -18,19 +18,31 @@
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Total Permissions</th>
-                <th>Actions</th>
+                <th>Assign Permissions</th>
+                <th>Actions </th>
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
                 @foreach ($roles as $role)
                     <tr>
                         <td>{{$role->name}}</td>
-                        <td></td>
                         <td>
-                            <button type="button" class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" data-bs-original-title="Delete Role">
-                                <span class="tf-icons bx bx-trash"></span>
+                          <a href="{{ route('assign.permission.to.role.view',$role->id) }}">
+                            <button type="button" class="btn btn-icon btn-outline-primary btn-sm ">
+                              <span class="tf-icons bx bx-plus"></span>
                             </button>
+                          </a>
+                          @foreach ($role->permissions as $permission)
+                              <span class="badge rounded-pill bg-dark">{{ $permission->name }}</span>
+                          @endforeach
+                          {{ count($permissions) }} Of {{ count($role->permissions) }}
+                        </td>
+                        <td>
+                            <a href="{{ route('role.delete',$role->id) }}">
+                              <button type="button" class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" data-bs-original-title="Delete Role">
+                                  <span class="tf-icons bx bx-trash"></span>
+                              </button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
