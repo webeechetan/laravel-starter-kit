@@ -8,10 +8,10 @@
 @endsection
 @section('content')
 <div class="card">
-    <h5 class="card-header">Permission</h5>
+    <h5 class="card-header">Users</h5>
     <div class="container-fluid">
         <div class="bg-light d-flex justify-content-between">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#NewPermissionModal">New Permission</button>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#NewPermissionModal">New User</button>
         </div>
         <div class="table-responsive text-nowrap mt-4">
           <table class="table table-hover" id="myTable">
@@ -20,7 +20,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Total Permissions</th>
+                <th>Assign New Role</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -29,8 +29,12 @@
                     <tr>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{ $user->getRoleNames() }}</td>
-                        <td>{{ $user->getPermissionNames() }}</td>
+                        <td>
+                          @foreach($user->getRoleNames() as $roleName)
+                          <span class="badge rounded-pill bg-dark">{{ $roleName }}</span>
+                          @endforeach
+                        </td>
+                        <td><a href="{{ route('user.assign.role.view',$user->id) }}"><button class="btn btn-primary btn-sm">Assign Role</button></a></td>
                         <td>
                             <button type="button" class="btn btn-icon btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" data-bs-original-title="Delete permission">
                                 <span class="tf-icons bx bx-trash"></span>

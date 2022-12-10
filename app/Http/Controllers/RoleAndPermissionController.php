@@ -58,4 +58,17 @@ class RoleAndPermissionController extends Controller
         Session::flash('toast',["type" => "primary","head" =>"Permission Assigned","body" =>"Permission Assigned Successfully"]);
         return redirect()->route('role.list');
     }
+
+    public function AssignNewRoleToUserView($UserId){
+        $user = User::find($UserId);
+        $roles = Role::all();
+        return view('admin.user.assign-role',compact('roles','user'));
+    }
+
+    public function AssignNewRoleToUser(Request $request){
+        $user = User::find($request->UserId);
+        $user->syncRoles($request->roles);
+        Session::flash('toast',["type" => "primary","head" =>"Role Assigned","body" =>"Role Assigned Successfully"]);
+        return redirect()->route('user.list');
+    }
 }

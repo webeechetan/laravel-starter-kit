@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
 use Unisharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\RoleAndPermissionController;
 use Spatie\Permission\Contracts\Role;
@@ -35,6 +36,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
     Route::post('/AssignPermissionToRole',[RoleAndPermissionController::class,'AssignPermissionToRole'])->name('assign.permission.to.role');
     // Users
     Route::get('/user',[RoleAndPermissionController::class,'UserList'])->name('user.list');
+    Route::get('/user/AssignNewRole/{UserId}',[RoleAndPermissionController::class,'AssignNewRoleToUserView'])->name('user.assign.role.view');
+    Route::post('/user/AssignNewRole',[RoleAndPermissionController::class,'AssignNewRoleToUser'])->name('user.assign.role');
 
     /*
     |--------------------------------------------------------------------------
@@ -48,6 +51,14 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
     Route::get('/filemanager-custom-input',function (){
         return view('admin.file-manager.custom-input');
     })->name('file-manager.custom-input');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pages Routes
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/page',[PageController::class,'create'])->name('page.create');
 
 });
 

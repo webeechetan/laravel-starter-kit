@@ -56,7 +56,6 @@
     <script src="{{ asset('admin/') }}/assets/js/dashboards-analytics.js"></script>
     <script src="{{ asset('admin/') }}/assets/js/ui-toasts.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    @stack('scripts')
     @if(session()->has('toast'))
       @php
           $toast = Session::get('toast');
@@ -69,5 +68,6 @@
       </script>
     @endif
     @yield('footer')
+    @stack('scripts')
   </body>
 </html>

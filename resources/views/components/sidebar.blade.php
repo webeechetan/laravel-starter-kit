@@ -78,6 +78,20 @@
               </li>
             </ul>
           </li>
+          {{-- Pages --}}
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Account Settings">Pages</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="{{ route('page.create') }}" class="menu-link">
+                  <div data-i18n="Account">New</div>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </aside>
 </div>
